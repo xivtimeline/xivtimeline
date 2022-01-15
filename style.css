@@ -1,0 +1,90 @@
+#visualization {
+  width: 100%;
+  margin-top: 30px;
+}
+
+body {
+  font-family: 'Yu Gothic';
+  margin: 20px;
+}
+
+h3 {
+  margin-top: -20px;
+}
+
+.vis-drag-left,
+.vis-drag-right {
+  pointer-events: none;
+}
+  
+.vis-item .vis-delete:after {
+  color: #000;
+}
+
+.vis-item .vis-delete:hover {
+  background: transparent;
+}
+  
+.vis-item .vis-delete:hover:after {
+  color: #9e9e9e;
+}
+
+.vis-custom-time {
+  background-color: #e5bec8;
+  pointer-events: none;
+}
+
+.vis-custom-time > .vis-custom-time-marker {
+  white-space: nowrap;
+  padding: 2px 5px;
+}
+
+.vis-item.vis-selected {
+  border-color: inherit;
+}
+
+.vis-item .vis-drag-center {
+  cursor: default;
+}
+
+.vis-item.darkMissionary {
+  background: linear-gradient(to right,
+                            #f6e1d5 0 16.66%,
+                            #fff5f1 16.66% 100%);
+  border-color: #f0ccbe;
+}
+
+.vis-item.reprisal {
+  background: linear-gradient(to right,
+                            #f2d5f6 0 16.66%,
+                            #fff1ff 16.66% 100%);
+  border-color: #ecbef0;
+}
+
+.vis-item.shadowWall {
+  background: linear-gradient(to right,
+                            #ded5f6 0 12.5%,
+                            #f4f1ff 12.5% 100%);
+  border-color: #c6bef0;
+}
+
+.vis-item.darkMind {
+  background: linear-gradient(to right,
+                            #eee5ca 0 16.66%,
+                            #f8f4e5 16.66% 100%);
+  border-color: #e2d5aa;
+}
+
+.vis-item.rampart {
+  background: linear-gradient(to right,
+                            #d5e4f6 0 22.22%,
+                            #f1f8ff 22.22% 100%);
+  border-color: #bed4f0;
+}
+
+.vis-item.livingDead {
+  background: linear-gradient(to right,
+                            #f6d5d5 0 6.66%,
+                            #fff1f1 6.66% 100%);
+  border-color: #f0bebe;
+}
