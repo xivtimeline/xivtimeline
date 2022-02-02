@@ -2,7 +2,7 @@
 var container = document.getElementById('visualization');
 
 // constants
-const min = 0; // 00:00
+const min = 0;            // 00:00
 const max = time(10, 50); // 10:50
 
 // categories
@@ -15,22 +15,37 @@ var categories = [
         content: "DRK",
         nestedGroups: [
           'darkMissionary',
-          'reprisal',
+          'reprisalDRK',
           'shadowWall',
           'darkMind',
-          'rampart',
+          'rampartDRK',
           'livingDead',
+        ],
+      },
+      {
+        id: 'war',
+        treeLevel: 0,
+        content: "WAR",
+        nestedGroups: [
+          'shakeItOff',
+          'reprisalWAR',
+          'vengeance',
+          'thrillOfBattle',
+          'equilibrium',
+          'rampartWAR',
+          'holmgang',
         ],
       },
     ],
     abilities: [
+      // drk abilities
       {
         id: 'darkMissionary',
         treeLevel: 1,
         content: "Dark Missionary",
       },
       {
-        id: 'reprisal',
+        id: 'reprisalDRK',
         treeLevel: 1,
         content: "Reprisal",
       },
@@ -45,7 +60,7 @@ var categories = [
         content: "Dark Mind",
       },
       {
-        id: 'rampart',
+        id: 'rampartDRK',
         treeLevel: 1,
         content: "Rampart",
       },
@@ -53,6 +68,43 @@ var categories = [
         id: 'livingDead',
         treeLevel: 1,
         content: "Living Dead",
+      },
+
+      // war abilities
+      {
+        id: 'shakeItOff',
+        treeLevel: 1,
+        content: "Shake It Off",
+      },
+      {
+        id: 'reprisalWAR',
+        treeLevel: 1,
+        content: "Reprisal",
+      },
+      {
+        id: 'vengeance',
+        treeLevel: 1,
+        content: "Vengeance",
+      },
+      {
+        id: 'thrillOfBattle',
+        treeLevel: 1,
+        content: "Thrill of Battle",
+      },
+      {
+        id: 'equilibrium',
+        treeLevel: 1,
+        content: "Equilibrium",
+      },
+      {
+        id: 'rampartWAR',
+        treeLevel: 1,
+        content: "Rampart",
+      },
+      {
+        id: 'holmgang',
+        treeLevel: 1,
+        content: "Holmgang",
       },
     ],
   },
@@ -65,6 +117,10 @@ groups.add(categories[0].abilities);
 
 // items
 var items = new vis.DataSet();
+if (localStorage.getItem('data')) {
+  var data = JSON.parse(localStorage.getItem('data'));
+  items.add(data);
+}
 
 // options
 var options = {
@@ -77,10 +133,10 @@ var options = {
     }
   },
   zoomMin: time(1, 0), // 01:00
-  start: 0,           // 00:00
+  start: 0,            // 00:00
   end: time(2, 0),     // 02:00
-  min: min,           // 00:00
-  max: max,           // 10:48
+  min: min,            // 00:00
+  max: max,            // 10:48
   groupHeightMode: 'fixed',
   snap: null,
   stack: false,
@@ -93,14 +149,18 @@ var options = {
     overrideItems: true,
   },
 
-  onAdd: function (item, callback) {
+  onAdd: function(item, callback) {
     item.className = item.group;
     item.content = '';
     item.end = item.start.getTime() + recast(item.group);
+
     callback(item);
+
+    var data = items.get();
+    localStorage.setItem('data', JSON.stringify(data));
   },
 
-  onMoving: function (item, callback) {
+  onMoving: function(item, callback) {
     var overlapping = items.get({
       filter: function (testItem) {
         if (testItem.id == item.id) {
@@ -116,6 +176,20 @@ var options = {
         && (item.start >= min)) {
           callback(item);
     }
+  },
+
+  onMove: function(item, callback) {
+    callback(item);
+
+    var data = items.get();
+    localStorage.setItem('data', JSON.stringify(data));
+  },
+
+  onRemove: function(item, callback) {
+    callback(item);
+
+    var data = items.get();
+    localStorage.setItem('data', JSON.stringify(data));
   },
 };
 
@@ -150,17 +224,25 @@ setMarker("Scorched Exaltation", time(10, 30), 23);
 setMarker("Scorched Exaltation", time(10, 37), 24);
 
 // function that returns ability's recast time
-function recast (ability) {
+function recast(ability) {
   switch (ability) {
     case 'livingDead':
       return (time(0, 300));
+    case 'holmgang':
+      return (time(0, 240));
     case 'shadowWall':
+    case 'vengeance':
       return (time(0, 120));
     case 'darkMissionary':
-    case 'rampart':
+    case 'rampartDRK':
+    case 'shakeItOff':
+    case 'thrillOfBattle':
+    case 'rampartWAR':
       return (time(0, 90));
-    case 'reprisal':
+    case 'reprisalDRK':
     case 'darkMind':
+    case 'reprisalWAR':
+    case 'equilibrium':
       return (time(0, 60));
     default:
       return (time(0, 0));
@@ -168,12 +250,12 @@ function recast (ability) {
 }
 
 // function to convert to time in milliseconds
-function time (mins, secs) {
+function time(mins, secs) {
   return (mins * 60000 + secs * 1000);
 }
 
 // function to set mech markers
-function setMarker (name, time, id) {
+function setMarker(name, time, id) {
   timeline.addCustomTime(time, id);
   timeline.setCustomTimeMarker(name, id);
 }

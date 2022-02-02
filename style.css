@@ -1,3 +1,4 @@
+/* body */
 #visualization {
   width: 100%;
   margin-top: 30px;
@@ -12,6 +13,7 @@ h3 {
   margin-top: -20px;
 }
 
+/* general functionality and styling */
 .vis-drag-left,
 .vis-drag-right {
   pointer-events: none;
@@ -29,6 +31,7 @@ h3 {
   color: #9e9e9e;
 }
 
+/* marker styling */
 .vis-custom-time {
   background-color: #e5bec8;
   pointer-events: none;
@@ -39,6 +42,7 @@ h3 {
   padding: 2px 5px;
 }
 
+/* item styling */
 .vis-item.vis-selected {
   border-color: inherit;
 }
@@ -47,6 +51,7 @@ h3 {
   cursor: default;
 }
 
+/* ability styling: drk */
 .vis-item.darkMissionary {
   background: linear-gradient(to right,
                             #f6e1d5 0 16.66%,
@@ -54,7 +59,7 @@ h3 {
   border-color: #f0ccbe;
 }
 
-.vis-item.reprisal {
+.vis-item.reprisalDRK, .vis-item.reprisalWAR {
   background: linear-gradient(to right,
                             #f2d5f6 0 16.66%,
                             #fff1ff 16.66% 100%);
@@ -75,7 +80,7 @@ h3 {
   border-color: #e2d5aa;
 }
 
-.vis-item.rampart {
+.vis-item.rampartDRK, .vis-item.rampartWAR {
   background: linear-gradient(to right,
                             #d5e4f6 0 22.22%,
                             #f1f8ff 22.22% 100%);
@@ -86,5 +91,41 @@ h3 {
   background: linear-gradient(to right,
                             #f6d5d5 0 6.66%,
                             #fff1f1 6.66% 100%);
+  border-color: #f0bebe;
+}
+
+/* ability styling: war */
+.vis-item.shakeItOff {
+  background: linear-gradient(to right,
+                            #ceecea 0 16.66%,
+                            #ecfcf9 16.66% 100%);
+  border-color: #b0ddd7;
+}
+
+.vis-item.vengeance {
+  background: linear-gradient(to right,
+                            #e7d5f6 0 12.5%,
+                            #f8f1ff 12.5% 100%);
+  border-color: #d5bef0;
+}
+
+.vis-item.thrillOfBattle {
+  background: linear-gradient(to right,
+                            #cff0d3 0 11.11%,
+                            #ecfced 11.11% 100%);
+  border-color: #b5e4b9;
+}
+
+.vis-item.equilibrium {
+  background: linear-gradient(to right,
+                            #e5eecb 0 25%,
+                            #f7fcec 25% 100%);
+  border-color: #d9e5b6;
+}
+
+.vis-item.holmgang {
+  background: linear-gradient(to right,
+                            #f6d5d5 0 4.16%,
+                            #fff1f1 4.16% 100%);
   border-color: #f0bebe;
 }
