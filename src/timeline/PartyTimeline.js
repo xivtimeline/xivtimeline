@@ -199,34 +199,35 @@ const PartyTimeline = () => {
   const container = useRef(null);
   useEffect(() => {
     const timeline = container.current && new Timeline(container.current, items, groups, options);
-  }, [container, items, groups]);
 
-  // mech markers - p3s
-  // setMarker("Scorched Exaltation", time(0, 12), 0);
-  // setMarker("Heat of Condemnation", time(0, 22), 1);
-  // setMarker("Heat of Condemnation", time(1, 36), 2);
-  // setMarker("Scorched Exaltation", time(1, 43), 3);
-  // setMarker("Heat of Condemnation", time(2, 28), 4);
-  // setMarker("Flare/Sparks of Condemnation", time(2, 53), 5);
-  // setMarker("Sunbirds", time(3, 0), 6);
-  // setMarker("Flames of Undeath/Revived Sunbirds", time(3, 27), 7);
-  // setMarker("Flames of Undeath", time(4, 14), 8);
-  // setMarker("Dead Rebirth", time(4, 35), 9);
-  // setMarker("Heat of Condemnation", time(4, 50), 10);
-  // setMarker("Ashplume", time(5, 42), 11);
-  // setMarker("Scorched Exaltation", time(6, 31), 12);
-  // setMarker("Scorched Exaltation", time(6, 38), 13);
-  // setMarker("Heat of Condemnation", time(6, 49), 14);
-  // setMarker("Firestorms of Asphodelos", time(7, 4), 15);
-  // setMarker("Ashplume", time(7, 24), 16);
-  // setMarker("Storms of Asphodelos", time(7, 47), 17);
-  // setMarker("Ashplume", time(8, 17), 18);
-  // setMarker("Scorched Exaltation", time(8, 23), 19);
-  // setMarker("Life's Agonies", time(9, 8), 20);
-  // setMarker("Ashplume", time(9, 29), 21);
-  // setMarker("Flare/Sparks of Condemnation", time(9, 43), 22);
-  // setMarker("Scorched Exaltation", time(10, 30), 23);
-  // setMarker("Scorched Exaltation", time(10, 37), 24);
+    // mech markers - p3s
+    setMarker(timeline, "Scorched Exaltation", time(0, 12), 0);
+    setMarker(timeline, "Heat of Condemnation", time(0, 22), 1);
+    setMarker(timeline, "Heat of Condemnation", time(1, 36), 2);
+    setMarker(timeline, "Scorched Exaltation", time(1, 43), 3);
+    setMarker(timeline, "Heat of Condemnation", time(2, 28), 4);
+    setMarker(timeline, "Flare/Sparks of Condemnation", time(2, 53), 5);
+    setMarker(timeline, "Sunbirds", time(3, 0), 6);
+    setMarker(timeline, "Flames of Undeath/Revived Sunbirds", time(3, 27), 7);
+    setMarker(timeline, "Flames of Undeath", time(4, 14), 8);
+    setMarker(timeline, "Dead Rebirth", time(4, 35), 9);
+    setMarker(timeline, "Heat of Condemnation", time(4, 50), 10);
+    setMarker(timeline, "Ashplume", time(5, 42), 11);
+    setMarker(timeline, "Scorched Exaltation", time(6, 31), 12);
+    setMarker(timeline, "Scorched Exaltation", time(6, 38), 13);
+    setMarker(timeline, "Heat of Condemnation", time(6, 49), 14);
+    setMarker(timeline, "Firestorms of Asphodelos", time(7, 4), 15);
+    setMarker(timeline, "Ashplume", time(7, 24), 16);
+    setMarker(timeline, "Storms of Asphodelos", time(7, 47), 17);
+    setMarker(timeline, "Ashplume", time(8, 17), 18);
+    setMarker(timeline, "Scorched Exaltation", time(8, 23), 19);
+    setMarker(timeline, "Life's Agonies", time(9, 8), 20);
+    setMarker(timeline, "Ashplume", time(9, 29), 21);
+    setMarker(timeline, "Flare/Sparks of Condemnation", time(9, 43), 22);
+    setMarker(timeline, "Scorched Exaltation", time(10, 30), 23);
+    setMarker(timeline, "Scorched Exaltation", time(10, 37), 24);
+
+  }, [container, items, groups]);
 
   // function that returns ability's recast time
   function recast(ability) {
@@ -260,10 +261,10 @@ const PartyTimeline = () => {
   }
 
   // function to set mech markers
-  // function setMarker(name, time, id) {
-  //   timeline.addCustomTime(time, id);
-  //   timeline.setCustomTimeMarker(name, id);
-  // }
+  function setMarker(timeline, name, time, id) {
+    timeline.addCustomTime(time, id);
+    timeline.setCustomTimeMarker(name, id);
+  }
 
   // return final
   return <div ref={container} />;

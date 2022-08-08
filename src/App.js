@@ -1,4 +1,4 @@
-import PartyTimeline from './Timeline';
+import PartyTimeline from './timeline/PartyTimeline';
 import './App.css';
 
 function App() {
