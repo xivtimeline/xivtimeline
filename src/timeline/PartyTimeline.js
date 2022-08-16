@@ -1,144 +1,150 @@
 import React, { useRef, useEffect } from 'react';
-import { DataSet, Timeline } from "vis-timeline/standalone";
+import { DataSet, Timeline } from 'vis-timeline/standalone';
+import './PartyTimeline.css';
+
+import recast from './jobs/recast';
+import time from './helpers/time';
+
+import p3s from './fights/p3s';
 
 const PartyTimeline = () => {
-  // nodes, edges, etc.
   // constants
-  const min = 0;            // 00:00
+  const min = 0; // 00:00
   const max = time(10, 50); // 10:50
 
   // categories
-  const categories = [
-    {
-      classes: [
-        {
-          id: 'drk',
-          treeLevel: 0,
-          content: "DRK",
-          nestedGroups: [
-            'darkMissionary',
-            'reprisalDRK',
-            'shadowWall',
-            'darkMind',
-            'rampartDRK',
-            'livingDead',
-          ],
-        },
-        {
-          id: 'war',
-          treeLevel: 0,
-          content: "WAR",
-          nestedGroups: [
-            'shakeItOff',
-            'reprisalWAR',
-            'vengeance',
-            'thrillOfBattle',
-            'equilibrium',
-            'rampartWAR',
-            'holmgang',
-          ],
-        },
-      ],
-      abilities: [
-        // drk abilities
+  const categories = {
+    classes: {
+      drk: {
+        id: 'drk',
+        treeLevel: 0,
+        content: 'DRK',
+        nestedGroups: [
+          'darkMissionary',
+          'reprisalDRK',
+          'shadowWall',
+          'darkMind',
+          'rampartDRK',
+          'livingDead',
+        ],
+      },
+
+      war: {
+        id: 'war',
+        treeLevel: 0,
+        content: 'WAR',
+        nestedGroups: [
+          'shakeItOff',
+          'reprisalWAR',
+          'vengeance',
+          'thrillOfBattle',
+          'equilibrium',
+          'rampartWAR',
+          'holmgang',
+        ],
+      },
+    },
+    abilities: {
+      drk: [
         {
           id: 'darkMissionary',
           treeLevel: 1,
-          content: "Dark Missionary",
+          content: 'Dark Missionary',
         },
         {
           id: 'reprisalDRK',
           treeLevel: 1,
-          content: "Reprisal",
+          content: 'Reprisal',
         },
         {
           id: 'shadowWall',
           treeLevel: 1,
-          content: "Shadow Wall",
+          content: 'Shadow Wall',
         },
         {
           id: 'darkMind',
           treeLevel: 1,
-          content: "Dark Mind",
+          content: 'Dark Mind',
         },
         {
           id: 'rampartDRK',
           treeLevel: 1,
-          content: "Rampart",
+          content: 'Rampart',
         },
         {
           id: 'livingDead',
           treeLevel: 1,
-          content: "Living Dead",
+          content: 'Living Dead',
         },
+      ],
 
-        // war abilities
+      war: [
         {
           id: 'shakeItOff',
           treeLevel: 1,
-          content: "Shake It Off",
+          content: 'Shake It Off',
         },
         {
           id: 'reprisalWAR',
           treeLevel: 1,
-          content: "Reprisal",
+          content: 'Reprisal',
         },
         {
           id: 'vengeance',
           treeLevel: 1,
-          content: "Vengeance",
+          content: 'Vengeance',
         },
         {
           id: 'thrillOfBattle',
           treeLevel: 1,
-          content: "Thrill of Battle",
+          content: 'Thrill of Battle',
         },
         {
           id: 'equilibrium',
           treeLevel: 1,
-          content: "Equilibrium",
+          content: 'Equilibrium',
         },
         {
           id: 'rampartWAR',
           treeLevel: 1,
-          content: "Rampart",
+          content: 'Rampart',
         },
         {
           id: 'holmgang',
           treeLevel: 1,
-          content: "Holmgang",
+          content: 'Holmgang',
         },
       ],
     },
-  ];
+  };
 
   // groups
   const groups = new DataSet();
-  groups.add(categories[0].classes);
-  groups.add(categories[0].abilities);
+  groups.add(categories.classes.war);
+  groups.add(categories.abilities.war);
 
   // items
-  var items = new DataSet();
+  let items = new DataSet();
   if (localStorage.getItem('data')) {
-    var data = JSON.parse(localStorage.getItem('data'));
+    let data = JSON.parse(localStorage.getItem('data'));
     items.add(data);
   }
 
   // options
-  var options = {
+  let options = {
     showMajorLabels: false,
     showCurrentTime: false,
     format: {
       minorLabels: {
         second: 'mm:ss',
         minute: 'mm:ss',
-      }
+      },
     },
     zoomMin: time(1, 0), // 01:00
-    start: 0,            // 00:00
-    end: time(2, 0),     // 02:00
-    min: min,            // 00:00
-    max: max,            // 10:48
+    start: 0, // 00:00
+    end: time(2, 0), // 02:00
+    min: min, // 00:00
+    max: max, // 10:48
     groupHeightMode: 'fixed',
     snap: null,
     stack: false,
@@ -151,46 +157,47 @@ const PartyTimeline = () => {
       overrideItems: true,
     },
 
-    onAdd: function(item, callback) {
+    onAdd: function (item, callback) {
       item.className = item.group;
       item.content = '';
       item.end = item.start.getTime() + recast(item.group);
 
       callback(item);
 
-      var data = items.get();
+      let data = items.get();
       localStorage.setItem('data', JSON.stringify(data));
     },
 
-    onMoving: function(item, callback) {
-      var overlapping = items.get({
+    onMoving: function (item, callback) {
+      let overlapping = items.get({
         filter: function (testItem) {
           if (testItem.id === item.id) {
             return false;
           }
-          return ((item.start <= testItem.end)
-                  && (item.end >= testItem.start)
-                  && (item.group === testItem.group));
-        }
+          return (
+            item.start <= testItem.end &&
+            item.end >= testItem.start &&
+            item.group === testItem.group
+          );
+        },
       });
 
-      if ((overlapping.length === 0)
-          && (item.start >= min)) {
-            callback(item);
+      if (overlapping.length === 0 && item.start >= min) {
+        callback(item);
       }
     },
 
-    onMove: function(item, callback) {
+    onMove: function (item, callback) {
       callback(item);
 
-      var data = items.get();
+      let data = items.get();
       localStorage.setItem('data', JSON.stringify(data));
     },
 
-    onRemove: function(item, callback) {
+    onRemove: function (item, callback) {
       callback(item);
 
-      var data = items.get();
+      let data = items.get();
       localStorage.setItem('data', JSON.stringify(data));
     },
   };
@@ -198,75 +205,14 @@ const PartyTimeline = () => {
   // useRef, useEffect
   const container = useRef(null);
   useEffect(() => {
-    const timeline = container.current && new Timeline(container.current, items, groups, options);
+    const timeline =
+      container.current &&
+      new Timeline(container.current, items, groups, options);
 
-    // mech markers - p3s
-    setMarker(timeline, "Scorched Exaltation", time(0, 12), 0);
-    setMarker(timeline, "Heat of Condemnation", time(0, 22), 1);
-    setMarker(timeline, "Heat of Condemnation", time(1, 36), 2);
-    setMarker(timeline, "Scorched Exaltation", time(1, 43), 3);
-    setMarker(timeline, "Heat of Condemnation", time(2, 28), 4);
-    setMarker(timeline, "Flare/Sparks of Condemnation", time(2, 53), 5);
-    setMarker(timeline, "Sunbirds", time(3, 0), 6);
-    setMarker(timeline, "Flames of Undeath/Revived Sunbirds", time(3, 27), 7);
-    setMarker(timeline, "Flames of Undeath", time(4, 14), 8);
-    setMarker(timeline, "Dead Rebirth", time(4, 35), 9);
-    setMarker(timeline, "Heat of Condemnation", time(4, 50), 10);
-    setMarker(timeline, "Ashplume", time(5, 42), 11);
-    setMarker(timeline, "Scorched Exaltation", time(6, 31), 12);
-    setMarker(timeline, "Scorched Exaltation", time(6, 38), 13);
-    setMarker(timeline, "Heat of Condemnation", time(6, 49), 14);
-    setMarker(timeline, "Firestorms of Asphodelos", time(7, 4), 15);
-    setMarker(timeline, "Ashplume", time(7, 24), 16);
-    setMarker(timeline, "Storms of Asphodelos", time(7, 47), 17);
-    setMarker(timeline, "Ashplume", time(8, 17), 18);
-    setMarker(timeline, "Scorched Exaltation", time(8, 23), 19);
-    setMarker(timeline, "Life's Agonies", time(9, 8), 20);
-    setMarker(timeline, "Ashplume", time(9, 29), 21);
-    setMarker(timeline, "Flare/Sparks of Condemnation", time(9, 43), 22);
-    setMarker(timeline, "Scorched Exaltation", time(10, 30), 23);
-    setMarker(timeline, "Scorched Exaltation", time(10, 37), 24);
-
+    p3s(timeline);
   }, [container, items, groups]);
 
-  // function that returns ability's recast time
-  function recast(ability) {
-    switch (ability) {
-      case 'livingDead':
-        return (time(0, 300));
-      case 'holmgang':
-        return (time(0, 240));
-      case 'shadowWall':
-      case 'vengeance':
-        return (time(0, 120));
-      case 'darkMissionary':
-      case 'rampartDRK':
-      case 'shakeItOff':
-      case 'thrillOfBattle':
-      case 'rampartWAR':
-        return (time(0, 90));
-      case 'reprisalDRK':
-      case 'darkMind':
-      case 'reprisalWAR':
-      case 'equilibrium':
-        return (time(0, 60));
-      default:
-        return (time(0, 0));
-    }
-  }
-
-  // function to convert to time in milliseconds
-  function time(mins, secs) {
-    return (mins * 60000 + secs * 1000);
-  }
-
-  // function to set mech markers
-  function setMarker(timeline, name, time, id) {
-    timeline.addCustomTime(time, id);
-    timeline.setCustomTimeMarker(name, id);
-  }
-
-  // return final
+  // return timeline
   return <div ref={container} />;
 };
 

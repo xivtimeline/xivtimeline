@@ -1,7 +1,7 @@
 import PartyTimeline from './timeline/PartyTimeline';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <>
       <h1>FFXIV Mitigation Planner</h1>
@@ -9,6 +9,6 @@ function App() {
       <PartyTimeline />
     </>
   );
-}
+};
 
 export default App;
