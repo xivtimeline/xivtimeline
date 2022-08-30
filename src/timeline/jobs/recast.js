@@ -1,9 +1,9 @@
 import time from '../helpers/time';
 
-// function that returns ability's recast time
+// return ability's recast time
 const recast = (ability) => {
   switch (ability) {
-    // drk
+    // drk - TODO
 
     // war
     case 'livingDead':

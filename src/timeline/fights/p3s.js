@@ -1,8 +1,9 @@
 import setMarker from '../helpers/setMarker';
 import time from '../helpers/time';
 
+// set mech markers for p3s
 const p3s = (timeline) => {
-  // mech markers - p3s
+  // id tracker
   let id = 0;
 
   setMarker(timeline, 'Scorched Exaltation', time(0, 12), id++);

@@ -14,6 +14,7 @@ const PartyTimeline = () => {
 
   // categories
   const categories = {
+    // classes
     classes: {
       drk: {
         id: 'drk',
@@ -44,6 +45,7 @@ const PartyTimeline = () => {
         ],
       },
     },
+    // abilities
     abilities: {
       drk: [
         {
@@ -209,6 +211,7 @@ const PartyTimeline = () => {
       container.current &&
       new Timeline(container.current, items, groups, options);
 
+    // set mech markers for p3s
     p3s(timeline);
   }, [container, items, groups]);
 
