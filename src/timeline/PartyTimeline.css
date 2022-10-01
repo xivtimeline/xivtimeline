@@ -36,7 +36,9 @@
   cursor: default;
 }
 
-/* ability styling: shared */
+/********************** ABILITIES **********************/
+
+/* shared */
 .vis-item.reprisalDRK,
 .vis-item.reprisalWAR {
   background: linear-gradient(to right, #f2d5f6 0 16.66%, #fff1ff 16.66% 100%);
@@ -49,7 +51,7 @@
   border-color: #bed4f0;
 }
 
-/* ability styling: drk */
+/* drk */
 .vis-item.darkMissionary {
   background: linear-gradient(to right, #f6e1d5 0 16.66%, #fff5f1 16.66% 100%);
   border-color: #f0ccbe;
@@ -70,7 +72,7 @@
   border-color: #f0bebe;
 }
 
-/* ability styling: war */
+/* war */
 .vis-item.shakeItOff {
   background: linear-gradient(to right, #ceecea 0 16.66%, #ecfcf9 16.66% 100%);
   border-color: #b0ddd7;

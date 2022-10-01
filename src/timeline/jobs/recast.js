@@ -27,6 +27,7 @@ const recast = (ability) => {
     case 'reprisalWAR':
     case 'equilibrium':
       return time(0, 60);
+
     default:
       return time(0, 0);
   }
